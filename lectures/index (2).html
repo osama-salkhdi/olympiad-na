@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الكيمياء النووية - الصف الثالث الثانوي | محاضرة + اختبار تجريبي</title>
+<style>
+  :root {
+    --primary: #1e40af;
+    --primary-light: #3b82f6;
+    --accent: #0ea5e9;
+    --success: #059669;
+    --danger: #dc2626;
+    --bg: #f1f5f9;
+    --card: #ffffff;
+    --text: #1e293b;
+    --muted: #64748b;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', Tahoma, 'Noto Naskh Arabic', Arial, sans-serif;
+    background: linear-gradient(160deg, #e0e7ff 0%, #f1f5f9 40%, #e0f2fe 100%);
+    color: var(--text);
+    line-height: 1.75;
+    min-height: 100vh;
+  }
+  .topbar {
+    background: linear-gradient(135deg, #1e3a8a, #1e40af);
+    color: white;
+    padding: 1rem 1.2rem;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 200;
+    box-shadow: 0 4px 20px rgba(30,58,138,0.3);
+  }
+  .topbar h1 { font-size: 1.35rem; margin-bottom: 0.2rem; }
+  .topbar p { font-size: 0.9rem; opacity: 0.9; }
+  .nav-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 0.7rem;
+    flex-wrap: wrap;
+  }
+  .nav-tabs button {
+    background: rgba(255,255,255,0.15);
+    border: none;
+    color: white;
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+  }
+  .nav-tabs button.active, .nav-tabs button:hover {
+    background: white;
+    color: var(--primary);
+  }
+  .container {
+    max-width: 880px;
+    margin: 1.5rem auto;
+    padding: 0 1rem 3rem;
+  }
+  .section {
+    display: none;
+    animation: fadeIn 0.35s ease;
+  }
+  .section.active { display: block; }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .card {
+    background: var(--card);
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+    padding: 1.6rem 1.8rem;
+    margin-bottom: 1.3rem;
+  }
+  .card h2 {
+    color: var(--primary);
+    font-size: 1.35rem;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid #dbeafe;
+    padding-bottom: 0.5rem;
+  }
+  .card h3 {
+    color: #1e40af;
+    font-size: 1.15rem;
+    margin: 1.2rem 0 0.6rem;
+  }
+  .card p, .card li { margin-bottom: 0.55rem; }
+  .card ul, .card ol { padding-right: 1.4rem; margin-bottom: 0.8rem; }
+  .highlight {
+    background: #eff6ff;
+    border-right: 4px solid var(--primary-light);
+    padding: 0.9rem 1.1rem;
+    border-radius: 0 10px 10px 0;
+    margin: 1rem 0;
+  }
+  .formula {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 0.9rem 1.2rem;
+    margin: 0.8rem 0;
+    font-family: 'Courier New', monospace;
+    direction: ltr;
+    text-align: center;
+    font-size: 1.05rem;
+    overflow-x: auto;
+  }
+  .key-terms {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0.8rem 0;
+  }
+  .term {
+    background: #dbeafe;
+    color: #1e40af;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+  .table-wrap { overflow-x: auto; margin: 1rem 0; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+  }
+  th, td {
+    border: 1px solid #e2e8f0;
+    padding: 0.6rem 0.8rem;
+    text-align: center;
+  }
+  th { background: #1e40af; color: white; }
+  tr:nth-child(even) { background: #f8fafc; }
+  .obj-list { background: #f0fdf4; border-radius: 12px; padding: 1rem 1.2rem; }
+  .obj-list li { margin-bottom: 0.4rem; }
+  /* Quiz styles */
+  .q-num {
+    display: inline-block;
+    background: var(--primary);
+    color: white;
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 32px;
+    font-weight: bold;
+    margin-left: 0.5rem;
+  }
+  .q-text { font-size: 1.1rem; margin: 0.9rem 0 1.2rem; font-weight: 500; }
+  .options { display: flex; flex-direction: column; gap: 0.6rem; }
+  .option {
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 0.8rem 1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: #f8fafc;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .option:hover:not(.disabled) { border-color: var(--primary); background: #eff6ff; }
+  .option.selected { border-color: var(--primary); background: #dbeafe; }
+  .option.correct { border-color: var(--success); background: #d1fae5; color: #065f46; }
+  .option.wrong { border-color: var(--danger); background: #fee2e2; color: #991b1b; }
+  .option.disabled { pointer-events: none; }
+  .opt-letter {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: #e2e8f0;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: bold; font-size: 0.85rem; flex-shrink: 0;
+  }
+  .option.correct .opt-letter { background: var(--success); color: white; }
+  .option.wrong .opt-letter { background: var(--danger); color: white; }
+  .solution {
+    margin-top: 1.1rem;
+    padding: 0.9rem 1.1rem;
+    background: #f0fdf4;
+    border-right: 4px solid var(--success);
+    border-radius: 0 10px 10px 0;
+    display: none;
+  }
+  .solution.show { display: block; }
+  .solution h4 { color: var(--success); margin-bottom: 0.3rem; }
+  .nav-btns {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1.3rem;
+    gap: 0.6rem;
+  }
+  button.btn {
+    border: none;
+    border-radius: 10px;
+    padding: 0.7rem 1.4rem;
+    font-size: 0.95rem;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 600;
+    transition: all 0.2s;
+  }
+  .btn-primary { background: var(--primary); color: white; }
+  .btn-primary:hover { background: #1e3a8a; }
+  .btn-secondary { background: #e2e8f0; color: #475569; }
+  .btn-secondary:hover { background: #cbd5e1; }
+  button:disabled { opacity: 0.5; cursor: not-allowed; }
+  .stats-bar {
+    display: flex;
+    justify-content: center;
+    gap: 1.2rem;
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+  }
+  .stat-pill {
+    background: #dbeafe;
+    color: #1e40af;
+    padding: 0.3rem 0.9rem;
+    border-radius: 20px;
+  }
+  .progress-bar {
+    height: 6px;
+    background: #e2e8f0;
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--primary-light);
+    width: 0%;
+    transition: width 0.3s;
+  }
+  .results { text-align: center; }
+  .score-circle {
+    width: 130px; height: 130px;
+    border-radius: 50%;
+    background: conic-gradient(var(--success) calc(var(--pct)*1%), #e2e8f0 0);
+    display: flex; align-items: center; justify-content: center;
+    margin: 1.3rem auto;
+  }
+  .score-inner {
+    width: 100px; height: 100px;
+    border-radius: 50%;
+    background: white;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+  }
+  .score-inner .num { font-size: 1.8rem; font-weight: bold; color: var(--primary); }
+  .review-item {
+    padding: 0.6rem 0.9rem;
+    border-radius: 10px;
+    margin-bottom: 0.4rem;
+    display: flex;
+    justify-content: space-between;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    font-size: 0.92rem;
+  }
+  .review-item.ok { border-color: #a7f3d0; background: #ecfdf5; }
+  .review-item.bad { border-color: #fecaca; background: #fef2f2; }
+  .confetti {
+    position: fixed; top:0; left:0; width:100%; height:100%;
+    pointer-events: none; z-index: 9999; overflow: hidden;
+  }
+  .confetti-piece {
+    position: absolute; width: 9px; height: 9px; top: -12px;
+    animation: fall 2.3s linear forwards;
+  }
+  @keyframes fall {
+    to { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+  }
+  .start-quiz-btn {
+    display: block;
+    width: 100%;
+    max-width: 320px;
+    margin: 1.5rem auto;
+    padding: 0.9rem;
+    font-size: 1.1rem;
+  }
+  @media (max-width: 600px) {
+    .topbar h1 { font-size: 1.1rem; }
+    .card { padding: 1.2rem; }
+  }
+</style>
+</head>
+<body>
+<div class="topbar">
+  <h1>الوحدة الأولى: الكيمياء النووية</h1>
+  <p>الصف الثالث الثانوي — محاضرة تفاعلية + اختبار تجريبي</p>
+  <div class="nav-tabs">
+    <button class="active" onclick="showSection('lesson')">المحاضرة</button>
+    <button onclick="showSection('quiz')">الاختبار التجريبي</button>
+  </div>
+</div>
+
+<div class="container">
+  <!-- ========== LESSON ========== -->
+  <div id="lesson" class="section active">
+    <div class="card">
+      <h2>مقدمة</h2>
+      <p>تُعد الطاقة النووية من أهم مصادر الطاقة، حيث تُستعمل في عدة مجالات منها توليد الكهرباء، والزراعة، والطب، وتنقية مياه الشرب.</p>
+      <p>تحدث داخل الشمس تفاعلات نووية يرافقها انطلاق طاقة هائلة، تشع الشمس هذه الطاقة على شكل أمواج كهرطيسية تترافق بتدفق جسيمات تُسمى الرياح الشمسية.</p>
+    </div>
+
+    <div class="card">
+      <h2>الأهداف التعليمية</h2>
+      <ul class="obj-list">
+        <li>يميّز بين النوى المستقرة وغير المستقرة.</li>
+        <li>يتعرف أنواع التحوّلات النووية (النشاط الإشعاعي الطبيعي).</li>
+        <li>يقارن بين خاصيات جسيمات ألفا وبيتا وأشعة غاما.</li>
+        <li>يستنتج طاقة الارتباط في النواة.</li>
+        <li>يتعرف عمر النصف للمادة المشعة.</li>
+        <li>يتعرف التفاعلات النووية (التقاط، تطافر، انشطار، اندماج).</li>
+      </ul>
+      <div class="key-terms">
+        <span class="term">الاستقرار النووي</span>
+        <span class="term">النشاط الإشعاعي</span>
+        <span class="term">طاقة ارتباط النواة</span>
+        <span class="term">عمر النصف</span>
+        <span class="term">انشطار نووي</span>
+        <span class="term">اندماج نووي</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>1. تركيب النواة</h2>
+      <ul>
+        <li>تحتوي النواة على <strong>بروتونات</strong> موجبة الشحنة و<strong>نيوترونات</strong> معتدلة الشحنة، موجودة في حيز صغير جداً.</li>
+        <li><strong>العدد الذري Z</strong>: عدد البروتونات في النواة = عدد الإلكترونات في الذرة المتعادلة.</li>
+        <li><strong>العدد الكتلي A</strong>: مجموع عدد البروتونات والنيوترونات (A = Z + N).</li>
+        <li>يُرمز لنواة العنصر: <span class="formula" style="display:inline-block;padding:0.2rem 0.6rem;">A<sub>Z</sub>X</span></li>
+      </ul>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>الجسيم</th><th>الرمز</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>نيوترون</td><td>¹₀n</td></tr>
+            <tr><td>بروتون</td><td>¹₁H أو ¹₁p</td></tr>
+            <tr><td>جسيم بيتا (إلكترون)</td><td>⁰₋₁e أو ⁰₋₁β</td></tr>
+            <tr><td>جسيم ألفا</td><td>⁴₂He أو ⁴₂α</td></tr>
+            <tr><td>بوزيترون</td><td>⁰₊₁e أو ⁰₊₁β</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>2. الاستقرار النووي</h2>
+      <p>تقع النوى المستقرة ضمن منطقة تُسمى <strong>حزام الاستقرار</strong>، والنوى غير المستقرة تقع خارجه.</p>
+      <div class="highlight">
+        <strong>استنتاجات هامة:</strong>
+        <ul>
+          <li>النسبة N/Z ≈ 1 للعناصر المستقرة ذات الأعداد الذرية الصغيرة.</li>
+          <li>النسبة N/Z &gt; 1 للعناصر المستقرة ذات الأعداد الذرية الكبيرة.</li>
+          <li>النسبة N/Z لنظير غير مستقر لا تساوي النسبة لنظير مستقر، وتتحوّل النوى غير المستقرة تلقائياً إلى نوى أكثر استقراراً عبر <strong>النشاط الإشعاعي</strong>.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>3. أنواع التحوّلات النووية (النشاط الإشعاعي الطبيعي)</h2>
+      <p>تحدث داخل النواة غير المستقرة تحوّلات نووية إلى نواة أخرى أكثر استقراراً، يرافقها انطلاق جسيمات وطاقة. يتحقق دوماً <strong>مصونية العدد الذري والعدد الكتلي</strong>.</p>
+
+      <h3>أ. تحوّل من النوع بيتا (β⁻)</h3>
+      <p>يحدث في النوى التي تقع <strong>فوق</strong> حزام الاستقرار نتيجة تحوّل نيوترون إلى بروتون:</p>
+      <div class="formula">¹₀n → ¹₁H + ⁰₋₁e</div>
+      <div class="formula">A<sub>Z</sub>X → A<sub>Z+1</sub>Y + ⁰₋₁e + Energy</div>
+      <div class="highlight">
+        <strong>تطبيق:</strong> تحوّل الثوريوم-231 إلى البروتكتيوم-231<br>
+        <div class="formula">²³¹₉₀Th → ²³¹₉₁Pa + ⁰₋₁e + Energy</div>
+        نوع التحوّل: بيتا.
+      </div>
+
+      <h3>ب. تحوّل من النوع بوزيترون (β⁺)</h3>
+      <p>يحدث في النوى التي تقع <strong>تحت</strong> حزام الاستقرار نتيجة تحوّل بروتون إلى نيوترون:</p>
+      <div class="formula">¹₁H → ¹₀n + ⁰₊₁e</div>
+      <div class="formula">A<sub>Z</sub>X → A<sub>Z-1</sub>Y + ⁰₊₁e + Energy</div>
+
+      <h3>ج. تحوّل من النوع ألفا (α)</h3>
+      <p>يحدث غالباً في النوى الثقيلة، وينطلق جسيم ألفا (نواة هيليوم):</p>
+      <div class="formula">A<sub>Z</sub>X → A-4<sub>Z-2</sub>Y + ⁴₂He + Energy</div>
+      <div class="highlight">
+        مثال: تحوّل الراديوم-226 إلى الرادون-222<br>
+        <div class="formula">²²⁶₈₈Ra → ²²²₈₆Rn + ⁴₂He + Energy</div>
+      </div>
+
+      <h3>د. أشعة غاما (γ)</h3>
+      <p>أمواج كهرطيسية عالية الطاقة تنطلق عندما تكون النواة في حالة مثارة، دون تغيير في A أو Z.</p>
+    </div>
+
+    <div class="card">
+      <h2>4. مقارنة بين جسيمات ألفا وبيتا وأشعة غاما</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>الخاصية</th><th>ألفا (α)</th><th>بيتا (β)</th><th>غاما (γ)</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>الطبيعة</td><td>جسيم (نواة He)</td><td>جسيم (إلكترون أو بوزيترون)</td><td>موجة كهرطيسية</td></tr>
+            <tr><td>الشحنة</td><td>+2</td><td>-1 أو +1</td><td>0</td></tr>
+            <tr><td>الكتلة</td><td>كبيرة نسبياً</td><td>صغيرة جداً</td><td>عديمة الكتلة</td></tr>
+            <tr><td>قدرة الاختراق</td><td>ضعيفة</td><td>متوسطة</td><td>عالية جداً</td></tr>
+            <tr><td>التأيين</td><td>قوي</td><td>متوسط</td><td>ضعيف</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>5. طاقة ارتباط النواة</h2>
+      <p>طاقة الارتباط النووي هي الطاقة اللازمة لتفكيك النواة إلى بروتوناتها ونيوتروناتها المنفصلة، أو الطاقة المنطلقة عند تكوّن النواة من هذه الجسيمات.</p>
+      <div class="formula">E<sub>b</sub> = Δm × c²</div>
+      <p>حيث Δm هو <strong>نقص الكتلة</strong> (كتلة الجسيمات المنفصلة − كتلة النواة).</p>
+      <p>كلما زادت طاقة الارتباط لكل نيوكليون، زادت استقرار النواة.</p>
+    </div>
+
+    <div class="card">
+      <h2>6. عمر النصف (t<sub>½</sub>)</h2>
+      <p>عمر النصف لمادة مشعة هو الزمن اللازم لتفكك نصف كمية المادة المشعة الموجودة.</p>
+      <div class="formula">N = N₀ × (1/2)<sup>n</sup></div>
+      <p>حيث n = عدد أعمار النصف = t / t<sub>½</sub></p>
+      <div class="highlight">
+        مثال: إذا كان عمر النصف = 2 ساعة، فبعد 6 ساعات (3 أعمار نصف) يتبقى 1/8 الكمية الأصلية.
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>7. التفاعلات النووية</h2>
+      <h3>تفاعل التقاط</h3>
+      <p>التقاط النواة لجسيم (غالباً نيوترون) لتكوين نواة مركبة قد تكون مثارة.</p>
+
+      <h3>تفاعل التطافر (الاصطناع)</h3>
+      <p>تفاعل ينتج عنه نوى جديدة غير موجودة طبيعياً.</p>
+
+      <h3>الانشطار النووي</h3>
+      <p>انقسام نواة ثقيلة (مثل اليورانيوم-235) إلى نواتين متوسطتين مع انطلاق نيوترونات وطاقة هائلة.</p>
+      <div class="formula">²³⁵₉₂U + ¹₀n → نواتان متوسطتان + نيوترونات + طاقة</div>
+
+      <h3>الاندماج النووي</h3>
+      <p>اتحاد نوى خفيفة (مثل نظائر الهيدروجين) لتكوين نواة أثقل مع انطلاق طاقة كبيرة (مصدر طاقة الشمس والنجوم).</p>
+      <div class="formula">²₁H + ³₁H → ⁴₂He + ¹₀n + طاقة</div>
+    </div>
+
+    <div class="card" style="text-align:center;">
+      <h2>جاهز للاختبار؟</h2>
+      <p>بعد دراسة المحاضرة، جرّب الاختبار التجريبي لقياس فهمك.</p>
+      <button class="btn btn-primary start-quiz-btn" onclick="showSection('quiz'); startQuiz();">بدء الاختبار التجريبي</button>
+    </div>
+  </div>
+
+  <!-- ========== QUIZ ========== -->
+  <div id="quiz" class="section">
+    <div id="quizStart" class="card" style="text-align:center;">
+      <h2>الاختبار التجريبي — الكيمياء النووية</h2>
+      <p>20 سؤالاً من محتوى الوحدة</p>
+      <p style="color:var(--muted);margin:0.8rem 0;">اختر الإجابة الصحيحة، ثم اطلع على التبرير</p>
+      <button class="btn btn-primary start-quiz-btn" onclick="startQuiz()">ابدأ الآن</button>
+    </div>
+
+    <div id="quizArea" style="display:none;">
+      <div class="stats-bar">
+        <div class="stat-pill">السؤال <span id="qCounter">1</span> / <span id="totalQ">20</span></div>
+        <div class="stat-pill">النقاط: <span id="scoreDisplay">0</span></div>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+      <div class="card" id="questionCard"></div>
+    </div>
+
+    <div id="resultsScreen" class="card results" style="display:none;">
+      <h2>نتيجة الاختبار</h2>
+      <div class="score-circle" id="scoreCircle" style="--pct:0">
+        <div class="score-inner">
+          <span class="num" id="finalScore">0</span>
+          <span style="font-size:0.85rem;color:#64748b;">من <span id="maxScore">20</span></span>
+        </div>
+      </div>
+      <p id="resultMsg" style="font-size:1.1rem;margin-bottom:0.8rem;"></p>
+      <p style="color:var(--muted);">الإجابات الصحيحة: <strong id="correctCount">0</strong> من 20</p>
+      <div class="nav-btns" style="justify-content:center;margin-top:1.3rem;">
+        <button class="btn btn-secondary" onclick="reviewAnswers()">مراجعة الإجابات</button>
+        <button class="btn btn-primary" onclick="location.reload()">إعادة</button>
+      </div>
+      <div id="reviewList" style="display:none;margin-top:1.2rem;text-align:right;"></div>
+    </div>
+  </div>
+</div>
+
+<div class="confetti" id="confetti"></div>
+
+<script>
+/* ========== QUESTIONS ARRAY (required format) ========== */
+const QUESTIONS = [
+  {
+    q: "ما هو العدد الذري Z؟",
+    o: ["عدد النيوترونات في النواة", "عدد البروتونات في النواة", "مجموع البروتونات والنيوترونات", "عدد الإلكترونات في المدارات الخارجية فقط"],
+    a: 1,
+    s: "العدد الذري Z هو عدد البروتونات في النواة، ويساوي عدد الإلكترونات في الذرة المتعادلة.",
+    pts: 1
+  },
+  {
+    q: "العدد الكتلي A يساوي:",
+    o: ["Z فقط", "N فقط", "Z + N", "Z − N"],
+    a: 2,
+    s: "العدد الكتلي A = عدد البروتونات (Z) + عدد النيوترونات (N).",
+    pts: 1
+  },
+  {
+    q: "النسبة N/Z للنوى المستقرة ذات الأعداد الذرية الصغيرة تكون تقريباً:",
+    o: ["أقل من 1", "تساوي 1", "أكبر من 2", "تساوي صفر"],
+    a: 1,
+    s: "للعناصر المستقرة الخفيفة تكون النسبة N/Z ≈ 1.",
+    pts: 1
+  },
+  {
+    q: "النسبة N/Z للنوى المستقرة الثقيلة تكون:",
+    o: ["أقل من 1", "تساوي 1", "أكبر من 1", "تساوي 0.5"],
+    a: 2,
+    s: "للعناصر الثقيلة المستقرة تكون N/Z > 1 بسبب الحاجة لمزيد من النيوترونات لتقليل التنافر بين البروتونات.",
+    pts: 1
+  },
+  {
+    q: "تحوّل بيتا (β⁻) يحدث عندما تتحوّل النواة غير المستقرة بـ:",
+    o: ["تحوّل بروتون إلى نيوترون", "تحوّل نيوترون إلى بروتون", "انطلاق جسيم ألفا", "انطلاق أشعة غاما فقط"],
+    a: 1,
+    s: "في تحوّل بيتا: نيوترون → بروتون + إلكترون (⁰₋₁e)، فيزداد Z بمقدار 1.",
+    pts: 1
+  },
+  {
+    q: "المعادلة العامة لتحوّل بيتا هي:",
+    o: ["A_Z X → A-4_(Z-2) Y + α", "A_Z X → A_(Z+1) Y + ⁰₋₁e", "A_Z X → A_(Z-1) Y + ⁰₊₁e", "A_Z X → A_Z X + γ"],
+    a: 1,
+    s: "تحوّل بيتا يزيد العدد الذري بمقدار 1 مع بقاء العدد الكتلي ثابتاً.",
+    pts: 1
+  },
+  {
+    q: "تحوّل نواة الثوريوم ²³¹₉₀Th إلى البروتكتيوم ²³¹₉₁Pa هو مثال على:",
+    o: ["تحوّل ألفا", "تحوّل بيتا", "تحوّل بوزيترون", "انشطار نووي"],
+    a: 1,
+    s: "Z زاد من 90 إلى 91 وA بقي 231، وهذا يدل على انطلاق جسيم بيتا.",
+    pts: 1
+  },
+  {
+    q: "تحوّل البوزيترون يحدث في النوى التي تقع:",
+    o: ["فوق حزام الاستقرار", "تحت حزام الاستقرار", "داخل حزام الاستقرار فقط", "في أي مكان"],
+    a: 1,
+    s: "النوى تحت حزام الاستقرار لديها فائض بروتونات، فتتحوّل بروتون إلى نيوترون مع انطلاق بوزيترون.",
+    pts: 1
+  },
+  {
+    q: "جسيم ألفا هو في الحقيقة:",
+    o: ["إلكترون", "بروتون", "نواة هيليوم ⁴₂He", "نيوترون"],
+    a: 2,
+    s: "جسيم ألفا = نواة ذرة الهيليوم (بروتونان + نيوترونان).",
+    pts: 1
+  },
+  {
+    q: "عند انطلاق جسيم ألفا من نواة، فإن العدد الكتلي ينقص بمقدار:",
+    o: ["1", "2", "4", "0"],
+    a: 2,
+    s: "جسيم ألفا كتلته 4، لذا A ينقص بـ 4 وZ ينقص بـ 2.",
+    pts: 1
+  },
+  {
+    q: "أي الإشعاعات التالية لها أعلى قدرة اختراق؟",
+    o: ["جسيمات ألفا", "جسيمات بيتا", "أشعة غاما", "النيوترونات الحرارية فقط"],
+    a: 2,
+    s: "أشعة غاما موجات كهرطيسية عالية الطاقة وقدرتها على الاختراق أكبر بكثير من ألفا وبيتا.",
+    pts: 1
+  },
+  {
+    q: "طاقة ارتباط النواة تُحسب من العلاقة:",
+    o: ["E = mc", "E = Δm × c²", "E = hν", "E = ½mv²"],
+    a: 1,
+    s: "طاقة الارتباط = نقص الكتلة × مربع سرعة الضوء (E = Δm c²).",
+    pts: 1
+  },
+  {
+    q: "عمر النصف لمادة مشعة هو:",
+    o: ["الزمن اللازم لتفكك كل المادة", "الزمن اللازم لتفكك نصف المادة", "الزمن اللازم لتضاعف المادة", "عمر النواة الواحدة"],
+    a: 1,
+    s: "t½ هو الزمن الذي تتفكك خلاله نصف كمية المادة المشعة.",
+    pts: 1
+  },
+  {
+    q: "إذا كان عمر النصف لمادة = 3 ساعات، فبعد 9 ساعات يتبقى من الكمية الأصلية:",
+    o: ["½", "¼", "⅛", "1/16"],
+    a: 2,
+    s: "9 ساعات = 3 أعمار نصف → (1/2)³ = 1/8.",
+    pts: 1
+  },
+  {
+    q: "الانشطار النووي هو:",
+    o: ["اتحاد نوى خفيفة", "انقسام نواة ثقيلة إلى نواتين متوسطتين", "انطلاق ألفا فقط", "تحوّل بيتا متسلسل"],
+    a: 1,
+    s: "الانشطار: نواة ثقيلة (مثل U-235) تنقسم إلى نواتين أخف مع انطلاق نيوترونات وطاقة.",
+    pts: 1
+  },
+  {
+    q: "الاندماج النووي يحدث في:",
+    o: ["المفاعلات النووية الانشطارية فقط", "الشمس والنجوم", "تحلل ألفا الطبيعي", "أجهزة الأشعة السينية"],
+    a: 1,
+    s: "الاندماج هو مصدر طاقة الشمس والنجوم، حيث تندمج نوى الهيدروجين لتكوين هيليوم.",
+    pts: 1
+  },
+  {
+    q: "أي مما يلي صحيح حول مصونية الأعداد في التحوّلات النووية؟",
+    o: ["يُحفظ A فقط", "يُحفظ Z فقط", "يُحفظ A وZ معاً", "لا يُحفظ أي منهما"],
+    a: 2,
+    s: "في كل تحوّل نووي يتحقق قانونا مصونية العدد الكتلي والعدد الذري (مع مراعاة شحنة الجسيمات المنطلقة).",
+    pts: 1
+  },
+  {
+    q: "نقص الكتلة (Mass defect) هو:",
+    o: ["كتلة النواة ناقص كتلة الإلكترونات", "مجموع كتل البروتونات والنيوترونات منفصلة ناقص كتلة النواة", "كتلة النيوترونات فقط", "الفرق بين A وZ"],
+    a: 1,
+    s: "نقص الكتلة = (كتلة البروتونات + كتلة النيوترونات وهي منفصلة) − كتلة النواة الفعلية، ويتحوّل إلى طاقة ارتباط.",
+    pts: 1
+  },
+  {
+    q: "أي الجسيمات التالية أقل قدرة على التأيين؟",
+    o: ["ألفا", "بيتا", "غاما", "كلها متساوية"],
+    a: 2,
+    s: "أشعة غاما قدرتها على التأيين ضعيفة مقارنة بألفا وبيتا، لكنها الأكثر اختراقاً.",
+    pts: 1
+  },
+  {
+    q: "المعادلة ²₁H + ³₁H → ⁴₂He + ¹₀n + طاقة تمثل:",
+    o: ["انشطار نووي", "تحوّل ألفا", "اندماج نووي", "تحوّل بيتا"],
+    a: 2,
+    s: "اتحاد نظيرين خفيفين (ديوتيريوم وتريتيوم) لتكوين هيليوم هو مثال كلاسيكي على الاندماج النووي.",
+    pts: 1
+  }
+];
+
+let current = 0;
+let score = 0;
+let answers = new Array(QUESTIONS.length).fill(null);
+let answered = new Array(QUESTIONS.length).fill(false);
+
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-tabs button').forEach((b, i) => {
+    b.classList.toggle('active', (id === 'lesson' && i === 0) || (id === 'quiz' && i === 1));
+  });
+}
+
+function startQuiz() {
+  document.getElementById('quizStart').style.display = 'none';
+  document.getElementById('quizArea').style.display = 'block';
+  document.getElementById('resultsScreen').style.display = 'none';
+  current = 0;
+  score = 0;
+  answers = new Array(QUESTIONS.length).fill(null);
+  answered = new Array(QUESTIONS.length).fill(false);
+  document.getElementById('totalQ').textContent = QUESTIONS.length;
+  document.getElementById('maxScore').textContent = QUESTIONS.length;
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const q = QUESTIONS[current];
+  const letters = ['أ', 'ب', 'ج', 'د', 'هـ'];
+  let optsHtml = q.o.map((opt, i) => {
+    let cls = 'option';
+    if (answered[current]) {
+      cls += ' disabled';
+      if (i === q.a) cls += ' correct';
+      else if (answers[current] === i) cls += ' wrong';
+    } else if (answers[current] === i) cls += ' selected';
+    return `<div class="${cls}" onclick="selectOption(${i})">
+      <span class="opt-letter">${letters[i]}</span><span>${opt}</span>
+    </div>`;
+  }).join('');
+
+  let sol = answered[current] ? `<div class="solution show"><h4>التبرير</h4><p>${q.s}</p></div>` : '';
+
+  document.getElementById('questionCard').innerHTML = `
+    <div><span class="q-num">${current+1}</span></div>
+    <div class="q-text">${q.q}</div>
+    <div class="options">${optsHtml}</div>
+    ${sol}
+    <div class="nav-btns">
+      <button class="btn btn-secondary" onclick="prevQ()" ${current===0?'disabled':''}>السابق</button>
+      ${answered[current]
+        ? `<button class="btn btn-primary" onclick="nextQ()">${current===QUESTIONS.length-1?'إنهاء':'التالي'}</button>`
+        : `<button class="btn btn-primary" onclick="submitAnswer()" ${answers[current]===null?'disabled':''}>تأكيد</button>`}
+    </div>`;
+  document.getElementById('qCounter').textContent = current + 1;
+  document.getElementById('scoreDisplay').textContent = score;
+  document.getElementById('progressFill').style.width = ((current+1)/QUESTIONS.length*100) + '%';
+}
+
+function selectOption(i) {
+  if (answered[current]) return;
+  answers[current] = i;
+  renderQuestion();
+}
+
+function submitAnswer() {
+  if (answers[current] === null || answered[current]) return;
+  answered[current] = true;
+  if (answers[current] === QUESTIONS[current].a) {
+    score += QUESTIONS[current].pts;
+    launchConfetti();
+  }
+  renderQuestion();
+}
+
+function nextQ() {
+  if (current < QUESTIONS.length - 1) {
+    current++;
+    renderQuestion();
+  } else {
+    showResults();
+  }
+}
+
+function prevQ() {
+  if (current > 0) {
+    current--;
+    renderQuestion();
+  }
+}
+
+function showResults() {
+  document.getElementById('quizArea').style.display = 'none';
+  document.getElementById('resultsScreen').style.display = 'block';
+  const pct = Math.round(score / QUESTIONS.length * 100);
+  document.getElementById('scoreCircle').style.setProperty('--pct', pct);
+  document.getElementById('finalScore').textContent = score;
+  document.getElementById('correctCount').textContent = answers.filter((a,i) => a === QUESTIONS[i].a).length;
+  let msg = pct >= 85 ? 'ممتاز! إتقان رائع للمادة 🌟' : pct >= 70 ? 'جيد جداً 👍' : pct >= 50 ? 'مستوى مقبول، راجع النقاط الضعيفة' : 'راجع المحاضرة جيداً ثم أعد المحاولة';
+  document.getElementById('resultMsg').textContent = msg;
+}
+
+function reviewAnswers() {
+  const list = document.getElementById('reviewList');
+  list.style.display = 'block';
+  list.innerHTML = '<h3 style="margin-bottom:0.8rem;">مراجعة</h3>' + QUESTIONS.map((q,i) => {
+    const ok = answers[i] === q.a;
+    return `<div class="review-item ${ok?'ok':'bad'}">
+      <span>س${i+1}: ${ok?'✓':'✗'} ${answers[i]!==null?q.o[answers[i]]:'—'}</span>
+      <span style="color:#64748b;font-size:0.85rem;">الصحيحة: ${q.o[q.a]}</span>
+    </div>`;
+  }).join('');
+}
+
+function launchConfetti() {
+  const box = document.getElementById('confetti');
+  const colors = ['#1e40af','#059669','#f59e0b','#ef4444','#8b5cf6','#0ea5e9'];
+  for (let i=0; i<30; i++) {
+    const p = document.createElement('div');
+    p.className = 'confetti-piece';
+    p.style.left = Math.random()*100 + '%';
+    p.style.background = colors[Math.floor(Math.random()*colors.length)];
+    p.style.borderRadius = Math.random()>0.5?'50%':'2px';
+    p.style.animationDelay = Math.random()*0.4 + 's';
+    p.style.animationDuration = (1.8+Math.random()*1.2)+'s';
+    box.appendChild(p);
+    setTimeout(() => p.remove(), 3500);
+  }
+}
+</script>
+</body>
+</html>
