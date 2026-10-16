@@ -67,11 +67,16 @@ function renderHome(offline){
   const done = MAN.filter(m => RES[m.id]);
   const avg = done.length ? Math.round(done.reduce((t,m) => t + RES[m.id].score / (m.count || 1) * 100, 0) / done.length) : 0;
   const cards = MAN.map((m, i) => {
+    const isLecture = (m.title || '').startsWith('📚') || /محاضرة|lecture/i.test(m.desc || '') || /https?:\/\//.test(m.desc || '');
     const r = RES[m.id], st = STU && store.get(stKey(m.id));
-    const pend = !r && st && st.done;              // انتهى محلياً ولم تُرسل نتيجته
+    const pend = !r && st && st.done;
     const prog = !r && st && !st.done;
     let cls = '', info = '', btn = '';
-    if(r){
+    if (isLecture) {
+      cls = 'lecture';
+      info = `<span class="badge" style="background:#dbeafe;color:#1e40af">📚 محاضرة</span>`;
+      btn = `<button class="pulse" data-act="lecture" data-id="${m.id}" data-desc="${esc(m.desc || '')}">فتح المحاضرة</button>`;
+    } else if(r){
       cls = 'done';
       info = `<span class="badge g">✔ تم تقديمه</span><div class="score-line">العلامة ${r.score} / ${m.count}${r.rank ? ` — الترتيب ${r.rank} من ${r.total}` : ''}</div>`;
       btn = `<button data-act="open" data-id="${m.id}">عرض الحل والأخطاء</button>`;
@@ -97,6 +102,17 @@ function renderHome(offline){
     <h2>الاختبارات المتاحة</h2><div class="grid">${cards}</div>`;
   document.getElementById('out').onclick = () => { store.del('oly_student'); STU = null; ctx.reg = ''; loginScreen(); };
   document.querySelectorAll('[data-act="open"]').forEach(b => b.onclick = () => openExam(b.dataset.id));
+  document.querySelectorAll('[data-act="lecture"]').forEach(b => b.onclick = () => openLecture(b.dataset.desc || ''));
+}
+
+/* ---------- فتح محاضرة (رابط خارجي أو ملف في المستودع) ---------- */
+function openLecture(desc) {
+  const urlMatch = (desc || '').match(/https?:\/\/[^\s<>"']+/);
+  if (urlMatch) {
+    window.open(urlMatch[0], '_blank');
+  } else {
+    alert('لم يتم العثور على رابط المحاضرة في الوصف.\nضع رابط الملف الكامل في حقل الوصف عند إضافة المحاضرة من لوحة التحكم.');
+  }
 }
 
 /* ---------- فتح اختبار ---------- */
