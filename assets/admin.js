@@ -328,10 +328,30 @@ function examsTab(){
     return `<tr style="cursor:default"><td>${i+1}</td><td><b>${esc(m.title)}</b><div class="muted">${esc(m.desc || '')}</div></td><td>${m.count}</td>
       <td><span class="badge ${cl}">${lb}</span></td><td>${m.attempts ?? ALL.filter(r => r.exam === m.id).length}</td><td><div class="chips">${acts}</div></td></tr>`;
   }).join('');
-  $('main').innerHTML = `<div class="card"><div class="top"><h2>إدارة الاختبارات</h2><div class="chips"><button class="amber" id="impx">📥 استيراد ملف اختبار (HTML)</button><button class="pulse" id="newx">➕ اختبار جديد (من PDF أو يدوياً)</button></div><input type="file" id="impf" accept=".html,.htm,.json" hidden></div>
+  $('main').innerHTML = `<div class="card"><div class="top"><h2>إدارة الاختبارات والمحاضرات</h2>
+  <div class="chips">
+    <button class="amber" id="impx">📥 استيراد اختبار (HTML)</button>
+    <button class="pulse" id="newx">➕ اختبار جديد</button>
+    <button class="sec" id="newlec">📚 إضافة محاضرة</button>
+  </div>
+  <input type="file" id="impf" accept=".html,.htm,.json" hidden>
+  <div class="muted" style="margin-top:10px;font-size:0.9rem;line-height:1.6">
+    <b>كيف تضيف محاضرة؟</b><br>
+    1) ارفع ملف الـ HTML الكامل إلى مجلد <code>lectures/</code> في مستودع GitHub.<br>
+    2) اضغط «📚 إضافة محاضرة» وضع العنوان يبدأ بـ 📚 والرابط الكامل في الوصف.<br>
+    3) انشر البطاقة. الطالب يضغط «فتح المحاضرة» فتفتح في نافذة جديدة.
+  </div>
+</div>
     ${Net.live() ? '' : '<div class="warn">⚠️ لم يُربط الخادم (SCRIPT_URL فارغ)، لذلك لا يمكن إنشاء اختبارات جديدة.</div>'}
-    <div class="scroll" style="margin-top:12px"><table class="t"><thead><tr><th>#</th><th>الاختبار</th><th>الأسئلة</th><th>الحالة</th><th>المحاولات</th><th>إجراءات</th></tr></thead><tbody>${rows}</tbody></table></div></div>`;
+    <div class="scroll" style="margin-top:12px"><table class="t"><thead><tr><th>#</th><th>العنوان</th><th>الأسئلة</th><th>الحالة</th><th>المحاولات</th><th>إجراءات</th></tr></thead><tbody>${rows}</tbody></table></div></div>`;
   $('newx').onclick = () => builder({id:'', title:'', desc:'', status:'hidden', questions:[]});
+  $('newlec').onclick = () => builder({
+    id: '',
+    title: '📚 ',
+    desc: 'https://osama-salkhdi.github.io/math-olympiad/lectures/NAME.html',
+    status: 'hidden',
+    questions: [{q:'هذه بطاقة محاضرة وليست اختباراً', o:['افتح المحاضرة من الزر'], a:0, s:'يُفتح الرابط الموجود في الوصف'}]
+  });
   $('impx').onclick = () => $('impf').click();
   $('impf').onchange = async e => { const f = e.target.files[0]; e.target.value = ''; if(f) importFile(f); };
   document.querySelectorAll('[data-a]').forEach(b => b.onclick = () => examAction(b.dataset.a, b.dataset.id));
