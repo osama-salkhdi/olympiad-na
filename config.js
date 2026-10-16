@@ -1,6 +1,6 @@
 /* ===== إعدادات منصة الاختبارات — عدّل هنا فقط ===== */
 window.CFG = {
-  SCRIPT_URL: "https://script.google.com/macros/s/AKfycbxP0SaKOss2hPLfwCdfGW1Y2mqqsGQ-z94tpNEUa4mjic5CAt-p74SHl9CrNHlsZNS4jA/exec",   // ← رابط Google Apps Script الذي ينتهي بـ /exec (اتركه فارغاً للتجربة المحلية)
+  SCRIPT_URL: "https://script.google.com/macros/s/AKfycbyqmdDzH9M60jYgLttBUxm3n8DRjazQciOS2P3DlYoDMkA5gsKKOePBfLJKndbb5Mi5RA/exec",   // ← رابط Google Apps Script الذي ينتهي بـ /exec (اتركه فارغاً للتجربة المحلية)
   OFFICE: "مكتب الأولمبياد العلمي السوري بدرعا",
   ENGINEER: "المهندس أسامة الصلخدي",
   SUBJECT: "العلوم النووية"   // ← اسم الاختصاص (يظهر في الترويسة): الرياضيات / المعلوماتية / ...
